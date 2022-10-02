@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('bio');
             $table->string('picture');
             $table->string('gender');
+            $table->string('location');
+
             // $table->rememberToken();
             $table->timestamps();
         });
