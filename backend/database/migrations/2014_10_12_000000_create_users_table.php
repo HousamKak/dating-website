@@ -17,13 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            // $table->timestamp('email_verified_at')->nullable();
             $table->integer('age');
-            $table->string('bio');
             $table->string('bio');
             $table->string('picture');
             $table->string('gender');
-            $table->rememberToken();
+            // $table->rememberToken();
             $table->timestamps();
         });
     }
