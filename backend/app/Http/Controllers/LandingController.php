@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,8 +9,8 @@ class LandingController extends Controller
     function addorExistingUser(Request $request)
     {
         // Check whether an email exists in the database
-        $user_email_number = User::select('email')->where('email', $request->email)->count();
-        if ($user_email_number > 0) {
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
             return response()->json([
                 "status" => "Success",
                 "data" => 'email already registered'
@@ -42,6 +41,39 @@ class LandingController extends Controller
             return response()->json([
                 "status" => "Success",
                 "data" => $user
+            ]);
+        }
+    }
+
+    function signin(Request $request)
+    {
+        // Validate the email address structure
+        if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            return response()->json([
+                "status" => "Success",
+                "data" => "invalid email"
+            ]);
+        }
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            $user_input_password = hash('sha256', hash('sha256', $request->password) . 'hj');
+            if ($user_input_password != $user->password) {
+                return response()->json(
+                    [
+                        "status" => "Success",
+                        "data" => 'invalid password'
+                    ]
+                );
+            } else {
+                return response()->json([
+                    "status" => "Success",
+                    "data" => $user->user_id
+                ]);
+            }
+        } else {
+            return response()->json([
+                "status" => "Success",
+                "data" => 'email not registered'
             ]);
         }
     }
