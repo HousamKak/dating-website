@@ -55,6 +55,7 @@ dating_pages.load_landing = async () => {
     signup_url = dating_pages.baseURL + "/signup";
     let params = new URLSearchParams();
     params.append("name", NAME.value);
+    params.append("email", EMAIL.value);
     params.append("age", AGE.value);
     params.append("gender", NAME.value);
     params.append("password", PASSWORD.value);
@@ -62,9 +63,10 @@ dating_pages.load_landing = async () => {
       "favorite_gender",
       FAV_GENDER.options[FAV_GENDER.selectedIndex].value
     );
+    params.append("gender", GENDER.options[GENDER.selectedIndex].value);
     dating_pages
       .postAPI(signup_url, params)
-      .this((object) => dating_pages.Console('testing jason',object));
+      .this((object) => dating_pages.Console("testing jason", object));
   });
 };
 
