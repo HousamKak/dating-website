@@ -1,28 +1,8 @@
 // navigator.geolocation.getCurrentPosition(showPosition);
 
-// Global pages navigation
-FEED = document.getElementById("FEED");
-FAVORITES = document.getElementById("FAVORITES");
-CHAT = document.getElementById("CHAT");
-PROFILE = document.getElementById("PROFILE");
-
-FEED.addEventListener("click", () => {
-  window.location.href = "/frontend/feed.html";
-});
-FAVORITES.addEventListener("click", () => {
-  window.location.href = "/frontend/favorites.html";
-});
-CHAT.addEventListener("click", () => {
-  window.location.href = "/frontend/chat.html";
-});
-PROFILE.addEventListener("click", () => {
-  window.location.href = "/frontend/profile.html";
-});
-
-//
 const dating_pages = {};
 
-dating_pages.baseURL = "http://127.0.0.1:8000/api/v0.1";
+dating_pages.baseURL = "http://127.0.0.1:8000/api";
 
 dating_pages.Console = (title, values, oneValue = true) => {
   console.log("---" + title + "---");
@@ -61,7 +41,31 @@ dating_pages.loadFor = (page) => {
 };
 
 dating_pages.load_landing = async () => {
-  // const landing_url = `${dating_pages.baseURL}/landing`;
+  // Get the signup button
+  const SIGNUP = document.getElementById("SIGNUP");
+  // Get the signup input fields
+  const FAV_GENDER = document.getElementById("FAV-GENDER");
+  const NAME = document.getElementById("NAME");
+  const EMAIL = document.getElementById("EMAIL");
+  const AGE = document.getElementById("AGE");
+  const GENDER = document.getElementById("GENDER");
+  const PASSWORD = document.getElementById("PASSWORD");
+  // Listen to the signup click
+  SIGNUP.addEventListener("click", () => {
+    signup_url = dating_pages.baseURL + "/signup";
+    let params = new URLSearchParams();
+    params.append("name", NAME.value);
+    params.append("age", AGE.value);
+    params.append("gender", NAME.value);
+    params.append("password", PASSWORD.value);
+    params.append(
+      "favorite_gender",
+      FAV_GENDER.options[FAV_GENDER.selectedIndex].value
+    );
+    dating_pages
+      .postAPI(signup_url, params)
+      .this((object) => dating_pages.Console('testing jason',object));
+  });
 };
 
 dating_pages.load_profile = () => {};
