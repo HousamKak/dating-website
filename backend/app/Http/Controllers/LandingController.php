@@ -31,11 +31,8 @@ class LandingController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->age = $request->age;
-            $user->bio = $request->bio;
-            $user->picture = $request->picture;
             $user->gender = $request->gender;
             $user->favorite_gender = $request->favorite_gender;
-            $user->location = $request->location;
             // Hash the password
             $user->password = hash('sha256', hash('sha256', $request->password) . 'hj');
             $user->save();
