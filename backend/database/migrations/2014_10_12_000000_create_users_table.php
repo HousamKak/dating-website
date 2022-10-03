@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('picture');
             $table->string('gender');
             $table->string('location');
+            $table->string('password');
             $table->string('favorite_gender');
 
             // $table->rememberToken();
