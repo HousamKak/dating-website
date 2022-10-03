@@ -1,9 +1,12 @@
+/* CSS reset */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Landing page */
 .landingpage-container {
   height: 100vh;
   display: flex;
@@ -70,4 +73,54 @@
   width: 20%;
   height: 15%;
   margin-bottom: 1vh;
+}
+
+/* shared between pages*/
+
+.container {
+  width: 100%;
+  padding: 0vh 2vh;
+}
+
+.nav-bar {
+  /* height: 5vh; */
+  /* background-color: aquamarine; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-bar > button {
+  width: 25%;
+  height: 7vh;
+  margin-top: 2vh;
+}
+
+/* Feed page */
+
+.people {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 4vh;
+}
+
+.person-card {
+  height: 40vh;
+  /* background-color: aqua; */
+  width: 15%;
+}
+
+.person-card > img {
+  height: 80%;
+  width: 100%;
+  /* border-radius: 30px; */
+}
+
+.person-buttons{
+  display: flex;
+  justify-content: space-around;
+}
+
+.person-buttons>button{
+  width: 30%;
 }

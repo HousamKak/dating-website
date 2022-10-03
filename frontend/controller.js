@@ -43,7 +43,10 @@ dating_pages.load_landing = async () => {
   const landing_url = `${dating_pages.baseURL}/landing`;
   const response_landing = await dating_pages.getAPI(landing_url);
   dating_pages.Console("Testing Products API", response_landing.data.data);
-  window.location.href = "/frontend/favorites.html";
+//   window.location.href = "/frontend/favorites.html";
 };
 
-dating_pages.load_products = () => {};
+dating_pages.load_profile = () => {};
+dating_pages.load_chat = () => {};
+dating_pages.load_favorites = () => {};
+dating_pages.load_feed= () => {};
