@@ -1,4 +1,25 @@
 // navigator.geolocation.getCurrentPosition(showPosition);
+
+// Global pages navigation
+FEED = document.getElementById("FEED");
+FAVORITES = document.getElementById("FAVORITES");
+CHAT = document.getElementById("CHAT");
+PROFILE = document.getElementById("PROFILE");
+
+FEED.addEventListener("click", () => {
+  window.location.href = "/frontend/feed.html";
+});
+FAVORITES.addEventListener("click", () => {
+  window.location.href = "/frontend/favorites.html";
+});
+CHAT.addEventListener("click", () => {
+  window.location.href = "/frontend/chat.html";
+});
+PROFILE.addEventListener("click", () => {
+  window.location.href = "/frontend/profile.html";
+});
+
+//
 const dating_pages = {};
 
 dating_pages.baseURL = "http://127.0.0.1:8000/api/v0.1";
@@ -40,13 +61,10 @@ dating_pages.loadFor = (page) => {
 };
 
 dating_pages.load_landing = async () => {
-  const landing_url = `${dating_pages.baseURL}/landing`;
-  const response_landing = await dating_pages.getAPI(landing_url);
-  dating_pages.Console("Testing Products API", response_landing.data.data);
-//   window.location.href = "/frontend/favorites.html";
+  // const landing_url = `${dating_pages.baseURL}/landing`;
 };
 
 dating_pages.load_profile = () => {};
 dating_pages.load_chat = () => {};
 dating_pages.load_favorites = () => {};
-dating_pages.load_feed= () => {};
+dating_pages.load_feed = () => {};
