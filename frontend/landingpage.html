@@ -32,28 +32,34 @@
         <div class="signup">
           <p>Sign up</p>
           <label for="name-input-field-signup">Name</label>
-          <input id="NAME"
+          <input
+            id="NAME"
             type="text"
             placeholder="name"
             name="name-input-field-signup"
           />
           <label for="email-input-field-signup">Email</label>
-          <input id="EMAIL"
+          <input
+            id="EMAIL"
             type="text"
             placeholder="email"
             name="email-input-field-signup"
           />
           <label for="age-input-field-signup">Age</label>
-          <input id="AGE" type="text" placeholder="age" name="age-input-field-signup" />
-          <label for="gender-input-field-signup">Gender</label>
-          <input id="GENDER"
+          <input
+            id="AGE"
             type="text"
-            placeholder="gender"
-            name="gender-input-field-signup"
+            placeholder="age"
+            name="age-input-field-signup"
           />
-
-          <label  for="password-input-field-signup">Password</label>
-          <input id="PASSWORD"
+          <label for="gender-input-field-signup">Gender</label>
+          <select id="GENDER" name="gender-input-field-signup">
+            <option value="F">Female</option>
+            <option value="M">Male</option>
+          </select>
+          <label for="password-input-field-signup">Password</label>
+          <input
+            id="PASSWORD"
             type="password"
             placeholder="password"
             name="password-input-field-signup"
@@ -71,5 +77,6 @@
     <script>
       dating_pages.loadFor("landing");
     </script>
+    <script src="/node_modules/axios/dist/axios.min.js"></script>
   </body>
 </html>
