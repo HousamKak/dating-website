@@ -206,7 +206,7 @@
 }
 
 .messages-body {
-  overflow: hidden;
+  overflow: scroll;
   height: 50vh;
   background-color: lightgrey;
 }
@@ -238,4 +238,24 @@
   width: 15%;
   margin: 2vh 2vh;
   height: 60vh;
+}
+
+.sender {
+  padding: 1vh;
+  margin-left: 40vh;
+  margin-right: 3vh;
+  margin-top: 2vh;
+  background-color: white;
+  width: fit-content;
+  border-radius: 10px;
+}
+
+.receiver {
+  padding: 1vh;
+  margin-right: 40vh;
+  margin-left: 3vh;
+  margin-top: 2vh;
+  background-color: white;
+  width: fit-content;
+  border-radius: 10px;
 }
