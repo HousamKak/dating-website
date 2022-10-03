@@ -200,6 +200,7 @@
 .messages-header {
   display: flex;
   align-items: center;
+  padding: 0vh 3vh;
   height: 10vh;
   width: 100%;
   background-color: aliceblue;
