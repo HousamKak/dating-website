@@ -66,9 +66,11 @@ class LandingController extends Controller
                     ]
                 );
             } else {
+                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
                 return response()->json([
                     "status" => "Success",
-                    "data" => $user
+                    "data" => $user,
+                    "token" => $token
                 ]);
             }
         } else {
@@ -77,5 +79,10 @@ class LandingController extends Controller
                 "data" => 'email not registered'
             ]);
         }
+    }
+
+    function signout(Request $request)
+    {
+        // I have no idea how to do this using a token
     }
 }
