@@ -16,31 +16,27 @@ dating_pages.Console = (title, values, oneValue = true) => {
   console.log("--/" + title + "---");
 };
 
-dating_pages.getAPI = async (api_url) => {
+dating_pages.getAPI = (api_url) => {
   try {
-    return await axios(api_url);
+    return axios(api_url);
   } catch (error) {
     dating_pages.Console("Error from GET API", error);
   }
 };
 
-dating_pages.postAPI = async (api_url, api_data, api_token = null) => {
-  try {
-    return await axios.post(api_url, api_data, {
-      headers: {
-        Authorization: "token " + api_token,
-      },
-    });
-  } catch (error) {
-    dating_pages.Console("Error from POST API", error);
-  }
+dating_pages.postAPI = (api_url, api_data, api_token = null) => {
+  return axios.post(api_url, api_data, {
+    headers: {
+      Authorization: "token " + api_token,
+    },
+  });
 };
 
 dating_pages.loadFor = (page) => {
   eval("dating_pages.load_" + page + "();");
 };
 
-dating_pages.load_landing = async () => {
+dating_pages.load_landing = () => {
   // Get the signup button
   const SIGNUP = document.getElementById("SIGNUP");
   // Get the signup input fields
@@ -53,20 +49,20 @@ dating_pages.load_landing = async () => {
   // Listen to the signup click
   SIGNUP.addEventListener("click", () => {
     signup_url = dating_pages.baseURL + "/signup";
+
     let params = new URLSearchParams();
     params.append("name", NAME.value);
     params.append("email", EMAIL.value);
     params.append("age", AGE.value);
-    params.append("gender", NAME.value);
-    params.append("password", PASSWORD.value);
+    params.append("gender", GENDER.options[GENDER.selectedIndex].value);
     params.append(
       "favorite_gender",
       FAV_GENDER.options[FAV_GENDER.selectedIndex].value
     );
-    params.append("gender", GENDER.options[GENDER.selectedIndex].value);
-    dating_pages
-      .postAPI(signup_url, params)
-      .this((object) => dating_pages.Console("testing jason", object));
+    params.append("password", PASSWORD.value);
+
+    axios.post(signup_url, params).then((x) => console.log(x));
+    // dating_pages.postAPI(signup_url, params);
   });
 };
 
