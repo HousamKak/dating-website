@@ -1,12 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>DateMate</title>
+  </head>
+  <body>
+    <div class="landingpage-container">
+      <div class="dating-bar">
+        <p>WELCOME TO THE FASTEST DATING SITE IN THE WORLD</p>
+      </div>
+      <div class="landingpage-credentials">
+        <div class="signin">
+          <p>Sign in</p>
+          <label for="email-input-field-singin">Email</label>
+          <input
+            type="text"
+            placeholder="email"
+            name="email-input-field-signin"
+          />
+          <label for="password-input-field-signin">Password</label>
+          <input
+            type="password"
+            placeholder="password"
+            name="password-input-field-signin"
+          />
+          <button>Log In</button>
+        </div>
+        <div class="signup">
+          <p>Sign up</p>
+          <label for="name-input-field-signup">Name</label>
+          <input
+            type="text"
+            placeholder="name"
+            name="name-input-field-signup"
+          />
+          <label for="email-input-field-signup">Email</label>
+          <input
+            type="text"
+            placeholder="email"
+            name="email-input-field-signup"
+          />
+          <label for="age-input-field-signup">Age</label>
+          <input type="text" placeholder="age" name="age-input-field-signup" />
+          <label for="gender-input-field-signup">Gender</label>
+          <input
+            type="text"
+            placeholder="gender"
+            name="gender-input-field-signup"
+          />
+          <label for="favgender-input-field-signup">Favorite Gender</label>
+          <input
+            type="text"
+            placeholder="favorite gender"
+            name="favgender-input-field-signup"
+          />
+          <label for="password-input-field-signup">Password</label>
+          <input
+            type="password"
+            placeholder="password"
+            name="password-input-field-signup"
+          />
+          <button>Sign up</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      dating_pages.loadFor("landing");
+    </script>
+  </body>
 </html>
