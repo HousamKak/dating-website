@@ -20,7 +20,14 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'age',
+        'bio',
+        'picture',
+        'gender',
+        'favorite_gender',
+        'location',
         'password',
+
     ];
 
     /**
@@ -42,7 +49,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-     /**
+    /**
      * The primary key associated with the table.
      *
      * @var string
