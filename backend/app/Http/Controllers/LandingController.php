@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -40,7 +41,7 @@ class LandingController extends Controller
             $user->save();
             return response()->json([
                 "status" => "Success",
-                "data" => $user
+                "data" => "Registration Succeeded"
             ]);
         }
     }
@@ -67,7 +68,7 @@ class LandingController extends Controller
             } else {
                 return response()->json([
                     "status" => "Success",
-                    "data" => $user->user_id
+                    "data" => $user
                 ]);
             }
         } else {
