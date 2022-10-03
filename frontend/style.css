@@ -168,14 +168,16 @@
 }
 .unfixed-container {
   width: 100%;
-  margin: 0vh 2vh;
+  padding: 0vh 2vh;
+  height: 100vh;
+  background-color: bisque;
 }
 
 .nav-unfixed {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 98%;
+  width: 100%;
 }
 
 .nav-unfixed > button {
@@ -196,6 +198,8 @@
   width: 50%;
 }
 .messages-header {
+  display: flex;
+  align-items: center;
   height: 10vh;
   width: 100%;
   background-color: aliceblue;
@@ -208,9 +212,22 @@
 }
 
 .message-send {
+  display: flex;
+  justify-content: space-around;
   height: 10vh;
   width: 100%;
   background-color: aliceblue;
+  align-items: center;
+}
+
+.message-send > button {
+  height: 70%;
+  width: 20%;
+}
+
+.message-send > input {
+  height: 70%;
+  width: 75%;
 }
 
 .messaging-person-card {
