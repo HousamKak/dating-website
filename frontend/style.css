@@ -80,47 +80,57 @@
 .container {
   width: 100%;
   padding: 0vh 2vh;
+  position: relative;
 }
 
 .nav-bar {
-  /* height: 5vh; */
-  /* background-color: aquamarine; */
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: fixed;
+  width: 100%;
 }
 
 .nav-bar > button {
   width: 25%;
-  height: 7vh;
-  margin-top: 2vh;
+  height: 8vh;
 }
 
 /* Feed page */
 
 .people {
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 4vh;
+  justify-content: center;
+  width: 100%;
 }
-
+.people-card-layer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10vh;
+  margin-left: 20vh;
+  width: 80%;
+}
 .person-card {
-  height: 40vh;
-  /* background-color: aqua; */
+  background-color: azure;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 15%;
+  margin: 2vh 2vh;
+  /* height: fit-content; */
+  height: 60vh;
 }
 
 .person-card > img {
-  height: 80%;
+  height: 40%;
   width: 100%;
-  /* border-radius: 30px; */
 }
 
-.person-buttons{
+.person-buttons {
   display: flex;
   justify-content: space-around;
 }
 
-.person-buttons>button{
+.person-buttons > button {
   width: 30%;
 }
