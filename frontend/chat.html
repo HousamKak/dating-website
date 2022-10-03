@@ -4,15 +4,42 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>chat</title>
   </head>
   <body>
-    <div class="container">
-      <div class="nav-bar">
+    <div class="unfixed-container">
+      <div class="nav-unfixed">
         <button>Feed</button>
         <button>favorties</button>
         <button>chat</button>
         <button>profile</button>
+      </div>
+      <div class="messages-container">
+        <div class="messaging-area">
+          <div class="messages-header">
+            <p>Name:</p>
+          </div>
+          <div class="messages-body"></div>
+          <div class="message-send"></div>
+        </div>
+
+        <div class="messaging-person-card">
+          <img src="/frontend/Assets/Images/dummy_profile_male.jpeg" />
+          <p>name:</p>
+          <p>age:</p>
+          <p>
+            bio: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas,
+            quos eaque. Voluptates officiis officia reiciendis eaque, cumque
+            molestiae? Nemo quos non, vitae eligendi eos ullam molestiae
+            consequuntur eveniet sint ex!
+          </p>
+          <div class="person-buttons">
+            <button>favorite</button>
+            <button>chat</button>
+            <button>block</button>
+          </div>
+        </div>
       </div>
     </div>
     <script>
