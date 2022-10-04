@@ -14,7 +14,7 @@ class LandingController extends Controller
         if ($user) {
             return response()->json([
                 "status" => "Success",
-                "data" => 'email already registered'
+                "result" => 'email already registered'
             ]);
         }
         // If the email doesn't exist, then create a new user
@@ -23,7 +23,7 @@ class LandingController extends Controller
             if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
                 return response()->json([
                     "status" => "Success",
-                    "data" => "invalid email"
+                    "result" => "invalid email"
                 ]);
             }
             // If email is validated create a new user
@@ -38,7 +38,7 @@ class LandingController extends Controller
             $user->save();
             return response()->json([
                 "status" => "Success",
-                "data" => "Registration Succeeded"
+                "result" => "Registration Succeeded"
             ]);
         }
     }
@@ -49,7 +49,7 @@ class LandingController extends Controller
         if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             return response()->json([
                 "status" => "Success",
-                "data" => "invalid email"
+                "result" => "invalid email"
             ]);
         }
         $user = User::where('email', $request->email)->first();
@@ -59,21 +59,21 @@ class LandingController extends Controller
                 return response()->json(
                     [
                         "status" => "Success",
-                        "data" => 'invalid password'
+                        "result" => 'invalid password'
                     ]
                 );
             } else {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
                 return response()->json([
                     "status" => "Success",
-                    "data" => $user,
+                    "result" => $user,
                     "token" => $token
                 ]);
             }
         } else {
             return response()->json([
                 "status" => "Success",
-                "data" => 'email not registered'
+                "result" => 'email not registered'
             ]);
         }
     }

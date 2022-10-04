@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/frontend/styles/style.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
     <title>DateMate</title>
   </head>
   <body>
@@ -29,54 +29,62 @@
           />
           <button>Log In</button>
         </div>
-        <div class="signup">
-          <p>Sign up</p>
-          <label for="name-input-field-signup">Name</label>
-          <input
-            id="NAME"
-            type="text"
-            placeholder="name"
-            name="name-input-field-signup"
-          />
-          <label for="email-input-field-signup">Email</label>
-          <input
-            id="EMAIL"
-            type="text"
-            placeholder="email"
-            name="email-input-field-signup"
-          />
-          <label for="age-input-field-signup">Age</label>
-          <input
-            id="AGE"
-            type="text"
-            placeholder="age"
-            name="age-input-field-signup"
-          />
-          <label for="gender-input-field-signup">Gender</label>
-          <select id="GENDER" name="gender-input-field-signup">
-            <option value="F">Female</option>
-            <option value="M">Male</option>
-          </select>
-          <label for="password-input-field-signup">Password</label>
-          <input
-            id="PASSWORD"
-            type="password"
-            placeholder="password"
-            name="password-input-field-signup"
-          />
-          <label for="favgender-input-field-signup">Favorite Gender</label>
-          <select id="FAV-GENDER" name="favgender-input-field-signup">
-            <option value="F">Female</option>
-            <option value="M">Male</option>
-          </select>
-          <button id="SIGNUP">Sign up</button>
+        <div class="signup-cont">
+          <div class="signup-data">
+            <p>Sign Up Form</p>
+            <label for="name-input-field-signup">Name</label>
+            <input
+              id="NAME"
+              type="text"
+              placeholder="name"
+              name="name-input-field-signup"
+            />
+            <label for="email-input-field-signup">Email</label>
+            <input
+              id="EMAIL"
+              type="text"
+              placeholder="email"
+              name="email-input-field-signup"
+            />
+            <label for="age-input-field-signup">Age</label>
+            <input
+              id="AGE"
+              type="text"
+              placeholder="age"
+              name="age-input-field-signup"
+            />
+
+            <label for="password-input-field-signup">Password</label>
+            <input
+              id="PASSWORD"
+              type="password"
+              placeholder="password"
+              name="password-input-field-signup"
+            />
+            <label for="gender-input-field-signup">Gender</label>
+            <select id="GENDER" name="gender-input-field-signup">
+              <option value="F">Female</option>
+              <option value="M">Male</option>
+            </select>
+
+            <label for="favgender-input-field-signup">Favorite Gender</label>
+            <select id="FAV-GENDER" name="favgender-input-field-signup">
+              <option value="F">Female</option>
+              <option value="M">Male</option>
+            </select>
+          </div>
+          <div class="signup-button">
+            <button id="SIGNUP">Sign up</button>
+            <p id="signup-message"></p>
+          </div>
         </div>
       </div>
     </div>
-    <script src="/frontend/controller.js"></script>
+    <script src="/scripts/controller.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="/node_modules/axios/dist/axios.min.js"></script> -->
     <script>
       dating_pages.loadFor("landing");
     </script>
-    <script src="/node_modules/axios/dist/axios.min.js"></script>
   </body>
 </html>
