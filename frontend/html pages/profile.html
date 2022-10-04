@@ -21,49 +21,53 @@
           <div class="edit-profile-header"><p>Edit profile</p></div>
           <div class="edit-profile-upload-image">
             <p>Upload a profile</p>
-            <input type="file" />
+            <input id="PROFILE-PHOTO" type="file" />
             <img
               class="edit-profile-profile-img"
               src="/Assets/Images/dummy_profile_male.jpeg"
             />
           </div>
           <div>
-            <label for="name-input-field-signup">Name</label>
+            <label for="name-input-field-profile">Name</label>
             <input
+              id="PROFILE-NAME"
               type="text"
               placeholder="name"
-              name="name-input-field-signup"
+              name="name-input-field-profile"
             />
           </div>
 
           <div>
-            <label for="age-input-field-signup">Age</label>
+            <label for="age-input-field-profile">Age</label>
             <input
+              id="PROFILE-AGE"
               type="text"
               placeholder="age"
-              name="age-input-field-signup"
+              name="age-input-field-profile"
             />
           </div>
 
           <div>
-            <label for="gender-input-field-signup">Gender</label>
+            <label for="gender-input-field-profile">Gender</label>
             <input
+              id="PROFILE-GENDER"
               type="text"
               placeholder="gender"
-              name="gender-input-field-signup"
+              name="gender-input-field-profile"
             />
           </div>
 
           <div>
-            <label for="favgender-input-field-signup">Favorite Gender</label>
+            <label for="favgender-input-field-profile">Favorite Gender</label>
             <input
+              id="PROFILE-FAVGENDER"
               type="text"
               placeholder="favorite gender"
-              name="favgender-input-field-signup"
+              name="favgender-input-field-profile"
             />
           </div>
           <div>
-            <button>Update Profile</button>
+            <button id="UPDATE-PROFILE">Update Profile</button>
           </div>
         </div>
 
@@ -76,32 +80,32 @@
             />
           </div>
           <div>
-            <p>Name: <span></span></p>
+            <p>Name: <span id="write-name"></span></p>
             <p></p>
           </div>
 
           <div>
-            <p>Email: <span></span></p>
+            <p>Email: <span id="write-email"></span></p>
             <p></p>
           </div>
 
           <div>
-            <p>Age: <span></span></p>
+            <p>Age: <span id="write-age"></span></p>
             <p></p>
           </div>
 
           <div>
-            <p>Gender: <span></span></p>
+            <p>Gender: <span id="write-gender"></span></p>
             <p></p>
           </div>
 
           <div>
-            <p>Favorite Gender: <span></span></p>
+            <p>Favorite Gender: <span id="write-favgender"></span></p>
             <p></p>
           </div>
 
           <div>
-            <p>Location: <span></span></p>
+            <p>Location: <span id="write-location"></span></p>
             <p></p>
           </div>
         </div>
@@ -109,7 +113,7 @@
     </div>
     <script src="/scripts/controller.js"></script>
     <script src="/scripts/navigator.js"></script>
-    <script src="/node_modules/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
       dating_pages.loadFor("profile");
     </script>

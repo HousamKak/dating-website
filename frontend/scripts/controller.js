@@ -93,14 +93,45 @@ dating_pages.load_landing = () => {
           signin_message.textContent = x + "email not registered";
         } else {
           window.location.href = "/html pages/feed.html";
-          localStorage.setItem("user_id", object.data.result);
+          localStorage.setItem("user_id", JSON.stringify(object.data.result));
         }
       }
     );
   });
 };
 
-dating_pages.load_profile = () => {};
-// dating_pages.load_chat = () => {};
-// dating_pages.load_favorites = () => {};
-// dating_pages.load_feed = () => {};
+dating_pages.load_profile = () => {
+  let user_id = JSON.parse(localStorage.getItem("user_id"));
+  const profile_url = dating_pages.baseURL + "/profile";
+  const profile_params = new URLSearchParams();
+  profile_params.append("user_id", user_id);
+
+  // write to
+  const write_name = document.getElementById("write-name");
+  const write_email = document.getElementById("write-email");
+  const write_age = document.getElementById("write-age");
+  const write_gender = document.getElementById("write-gender");
+  const write_favgender = document.getElementById("write-fav-gender");
+
+  axios({ method: "post", url: profile_url, data: profile_params }).then(
+    (object) => {
+      write_name.textContent = object.data.result.name;
+      write_email.textContent = object.data.result.email;
+      write_age.textContent = object.data.result.age;
+      write_gender.textContent = object.data.result.gender;
+      write_favgender.textContent = object.data.result.fav_content;
+    }
+  );
+
+  // get from
+  const profile_name = document.getElementById("PROFILE-NAME");
+  const profile_photo = document.getElementById("PROFILE-PHOTO");
+  const profile_age = document.getElementById("PROFILE-AGE");
+  const profile_gender = document.getElementById("PROFILE-GENDER");
+  const profile_favgender = document.getElementById("PROFILE-FAVGENDER");
+  const update_profile = document.getElementById("UPDATE-PROFILE");
+  update_profile.addEventListener("click", () => {});
+};
+dating_pages.load_chat = () => {};
+dating_pages.load_favorites = () => {};
+dating_pages.load_feed = () => {};
