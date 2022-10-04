@@ -46,8 +46,10 @@ dating_pages.load_landing = () => {
   const AGE = document.getElementById("AGE");
   const GENDER = document.getElementById("GENDER");
   const PASSWORD = document.getElementById("PASSWORD");
+  const IN_EMAIL = document.getElementById("IN-EMAIL");
+  const IN_PASSWORD = document.getElementById("IN-PASSWORD");
+  const LOGIN = document.getElementById("LOGIN");
   // Listen to the signup click
-
   SIGNUP.addEventListener("click", () => {
     const signup_url = dating_pages.baseURL + "/signup";
     const signup_message = document.getElementById("signup-message");
@@ -71,6 +73,30 @@ dating_pages.load_landing = () => {
         signup_message.textContent = "Registration succeeded Please log In";
       }
     });
+  });
+
+  // Listen to sign in click
+  LOGIN.addEventListener("click", () => {
+    const signin_url = dating_pages.baseURL + "/signin";
+    const signin_params = new URLSearchParams();
+    signin_params.append("email", IN_EMAIL.value);
+    signin_params.append("password", IN_PASSWORD.value);
+    const signin_message = document.getElementById("signin-message");
+    axios({ method: "post", url: signin_url, data: signin_params }).then(
+      (object) => {
+        console.log(object.data);
+        x = "Sign in: ";
+        if (object.data.result == "invalid email") {
+          signin_message.textContent = x + "invalid email";
+        } else if (object.data.result == "invalid password") {
+          signin_message.textContent = x + "invalid password";
+        } else if (object.data.result == "email not registered") {
+          signin_message.textContent = x + "email not registered";
+        } else {
+          window.location.href = "/html pages/feed.html";
+        }
+      }
+    );
   });
 };
 
