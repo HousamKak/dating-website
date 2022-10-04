@@ -112,6 +112,7 @@ dating_pages.load_profile = () => {
   const write_age = document.getElementById("write-age");
   const write_gender = document.getElementById("write-gender");
   const write_favgender = document.getElementById("write-favgender");
+  const write_profile = document.getElementById("PROFILE-PHOTO");
 
   axios({ method: "post", url: user_info_url, data: profile_params }).then(
     (object) => {
@@ -120,12 +121,13 @@ dating_pages.load_profile = () => {
       write_age.textContent = object.data.result.age;
       write_gender.textContent = object.data.result.gender;
       write_favgender.textContent = object.data.result.favorite_gender;
+      write_profile.src = object.data.result.picture;
     }
   );
 
   // get from
   const profile_name = document.getElementById("PROFILE-NAME");
-  const profile_photo = document.getElementById("PROFILE-PHOTO");
+  const profile_photo_path = document.getElementById("PROFILE-PHOTO-path");
   const profile_age = document.getElementById("PROFILE-AGE");
   const profile_gender = document.getElementById("PROFILE-GENDER");
   const profile_favgender = document.getElementById("PROFILE-FAVGENDER");
@@ -137,7 +139,7 @@ dating_pages.load_profile = () => {
     new_profile_params.append("user_id", user_id);
     new_profile_params.append("name", profile_name.value);
     new_profile_params.append("age", profile_age.value);
-    new_profile_params.append("picture", profile_photo.value);
+    new_profile_params.append("picture", profile_photo_path.value);
     new_profile_params.append("gender", profile_gender.value);
     new_profile_params.append("favorite_gender", profile_favgender.value);
     axios({
@@ -149,6 +151,8 @@ dating_pages.load_profile = () => {
     write_age.textContent = profile_age.value;
     write_gender.textContent = profile_gender.value;
     write_favgender.textContent = profile_favgender.value;
+    // profile_photo.src
+    console.log(profile_photo);
   });
 };
 dating_pages.load_chat = () => {};
