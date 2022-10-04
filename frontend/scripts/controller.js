@@ -101,8 +101,8 @@ dating_pages.load_landing = () => {
 };
 
 dating_pages.load_profile = () => {
-  let user_id = JSON.parse(localStorage.getItem("user_id"));
-  const profile_url = dating_pages.baseURL + "/profile";
+  const user_id = JSON.parse(localStorage.getItem("user_id"));
+  const user_info_url = dating_pages.baseURL + "/user/info";
   const profile_params = new URLSearchParams();
   profile_params.append("user_id", user_id);
 
@@ -111,15 +111,15 @@ dating_pages.load_profile = () => {
   const write_email = document.getElementById("write-email");
   const write_age = document.getElementById("write-age");
   const write_gender = document.getElementById("write-gender");
-  const write_favgender = document.getElementById("write-fav-gender");
+  const write_favgender = document.getElementById("write-favgender");
 
-  axios({ method: "post", url: profile_url, data: profile_params }).then(
+  axios({ method: "post", url: user_info_url, data: profile_params }).then(
     (object) => {
       write_name.textContent = object.data.result.name;
       write_email.textContent = object.data.result.email;
       write_age.textContent = object.data.result.age;
       write_gender.textContent = object.data.result.gender;
-      write_favgender.textContent = object.data.result.fav_content;
+      write_favgender.textContent = object.data.result.favorite_gender;
     }
   );
 
@@ -130,7 +130,26 @@ dating_pages.load_profile = () => {
   const profile_gender = document.getElementById("PROFILE-GENDER");
   const profile_favgender = document.getElementById("PROFILE-FAVGENDER");
   const update_profile = document.getElementById("UPDATE-PROFILE");
-  update_profile.addEventListener("click", () => {});
+  const update_profile_url = dating_pages.baseURL + "/user/update";
+
+  update_profile.addEventListener("click", () => {
+    const new_profile_params = new URLSearchParams();
+    new_profile_params.append("user_id", user_id);
+    new_profile_params.append("name", profile_name.value);
+    new_profile_params.append("age", profile_age.value);
+    new_profile_params.append("picture", profile_photo.value);
+    new_profile_params.append("gender", profile_gender.value);
+    new_profile_params.append("favorite_gender", profile_favgender.value);
+    axios({
+      method: "post",
+      url: update_profile_url,
+      data: new_profile_params,
+    });
+    write_name.textContent = profile_name.value;
+    write_age.textContent = profile_age.value;
+    write_gender.textContent = profile_gender.value;
+    write_favgender.textContent = profile_favgender.value;
+  });
 };
 dating_pages.load_chat = () => {};
 dating_pages.load_favorites = () => {};
