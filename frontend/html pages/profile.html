@@ -15,60 +15,100 @@
         <button id="CHAT">chat</button>
         <button id="PROFILE">profile</button>
       </div>
-      <div class="edit-profile">
-        <div class="edit-profile-header"><p>Edit profile</p></div>
-        <div class="edit-profile-upload-image">
-          <p>Upload a profile</p>
-          <input type="file" />
-          <img
-            class="edit-profile-profile-img"
-            src="/frontend/Assets/Images/dummy_profile_male.jpeg"
-          />
-        </div>
-        <div>
-          <label for="name-input-field-signup">Name</label>
-          <input
-            type="text"
-            placeholder="name"
-            name="name-input-field-signup"
-          />
+
+      <div class="the-profile">
+        <div class="edit-profile">
+          <div class="edit-profile-header"><p>Edit profile</p></div>
+          <div class="edit-profile-upload-image">
+            <p>Upload a profile</p>
+            <input type="file" />
+            <img
+              class="edit-profile-profile-img"
+              src="/Assets/Images/dummy_profile_male.jpeg"
+            />
+          </div>
+          <div>
+            <label for="name-input-field-signup">Name</label>
+            <input
+              type="text"
+              placeholder="name"
+              name="name-input-field-signup"
+            />
+          </div>
+
+          <div>
+            <label for="age-input-field-signup">Age</label>
+            <input
+              type="text"
+              placeholder="age"
+              name="age-input-field-signup"
+            />
+          </div>
+
+          <div>
+            <label for="gender-input-field-signup">Gender</label>
+            <input
+              type="text"
+              placeholder="gender"
+              name="gender-input-field-signup"
+            />
+          </div>
+
+          <div>
+            <label for="favgender-input-field-signup">Favorite Gender</label>
+            <input
+              type="text"
+              placeholder="favorite gender"
+              name="favgender-input-field-signup"
+            />
+          </div>
+          <div>
+            <button>Update Profile</button>
+          </div>
         </div>
 
-        <div>
-          <label for="email-input-field-signup">Email</label>
-          <input
-            type="text"
-            placeholder="email"
-            name="email-input-field-signup"
-          />
-        </div>
+        <div class="edit-profile">
+          <div class="edit-profile-header"><p>Your Profile</p></div>
+          <div class="edit-profile-upload-image">
+            <img
+              class="edit-profile-profile-img"
+              src="/Assets/Images/dummy_profile_male.jpeg"
+            />
+          </div>
+          <div>
+            <p>Name: <span></span></p>
+            <p></p>
+          </div>
 
-        <div>
-          <label for="age-input-field-signup">Age</label>
-          <input type="text" placeholder="age" name="age-input-field-signup" />
-        </div>
+          <div>
+            <p>Email: <span></span></p>
+            <p></p>
+          </div>
 
-        <div>
-          <label for="gender-input-field-signup">Gender</label>
-          <input
-            type="text"
-            placeholder="gender"
-            name="gender-input-field-signup"
-          />
-        </div>
+          <div>
+            <p>Age: <span></span></p>
+            <p></p>
+          </div>
 
-        <div>
-          <label for="favgender-input-field-signup">Favorite Gender</label>
-          <input
-            type="text"
-            placeholder="favorite gender"
-            name="favgender-input-field-signup"
-          />
+          <div>
+            <p>Gender: <span></span></p>
+            <p></p>
+          </div>
+
+          <div>
+            <p>Favorite Gender: <span></span></p>
+            <p></p>
+          </div>
+
+          <div>
+            <p>Location: <span></span></p>
+            <p></p>
+          </div>
         </div>
       </div>
     </div>
-    <script src="/frontend/scripts/controller.js"></script>
-    <script src="/frontend/scripts/navigator.js"></script>
+    <script src="/scripts/controller.js"></script>
+    <script src="/scripts/navigator.js"></script>
     <script src="/node_modules/axios/dist/axios.min.js"></script>
     <script>
       dating_pages.loadFor("profile");

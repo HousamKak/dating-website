@@ -84,7 +84,6 @@ dating_pages.load_landing = () => {
     const signin_message = document.getElementById("signin-message");
     axios({ method: "post", url: signin_url, data: signin_params }).then(
       (object) => {
-        console.log(object.data);
         x = "Sign in: ";
         if (object.data.result == "invalid email") {
           signin_message.textContent = x + "invalid email";
@@ -94,13 +93,14 @@ dating_pages.load_landing = () => {
           signin_message.textContent = x + "email not registered";
         } else {
           window.location.href = "/html pages/feed.html";
+          localStorage.setItem("user_id", object.data.result);
         }
       }
     );
   });
 };
 
-// dating_pages.load_profile = () => {};
+dating_pages.load_profile = () => {};
 // dating_pages.load_chat = () => {};
 // dating_pages.load_favorites = () => {};
 // dating_pages.load_feed = () => {};

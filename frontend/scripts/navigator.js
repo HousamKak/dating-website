@@ -6,15 +6,15 @@ CHAT = document.getElementById("CHAT");
 PROFILE = document.getElementById("PROFILE");
 
 FEED.addEventListener("click", () => {
-  window.location.href = "/frontend/feed.html";
+  window.location.href = "/html pages/feed.html";
 });
 FAVORITES.addEventListener("click", () => {
-  window.location.href = "/frontend/favorites.html";
+  window.location.href = "/html pages/favorites.html";
 });
 CHAT.addEventListener("click", () => {
-  window.location.href = "/frontend/chat.html";
+  window.location.href = "/html pages/chat.html";
 });
 PROFILE.addEventListener("click", () => {
-  window.location.href = "/frontend/profile.html";
+  window.location.href = "/html pages/profile.html";
 });
 //////////////////////////////////////////////////////////////
