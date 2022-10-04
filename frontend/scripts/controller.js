@@ -1,5 +1,4 @@
 // navigator.geolocation.getCurrentPosition(showPosition);
-
 const dating_pages = {};
 
 dating_pages.baseURL = "http://127.0.0.1:8000/api";
@@ -39,6 +38,7 @@ dating_pages.loadFor = (page) => {
 dating_pages.load_landing = () => {
   // Get the signup button
   const SIGNUP = document.getElementById("SIGNUP");
+
   // Get the signup input fields
   const FAV_GENDER = document.getElementById("FAV-GENDER");
   const NAME = document.getElementById("NAME");
@@ -47,10 +47,11 @@ dating_pages.load_landing = () => {
   const GENDER = document.getElementById("GENDER");
   const PASSWORD = document.getElementById("PASSWORD");
   // Listen to the signup click
-  SIGNUP.addEventListener("click", () => {
-    signup_url = dating_pages.baseURL + "/signup";
 
-    let params = new URLSearchParams();
+  SIGNUP.addEventListener("click", () => {
+    const signup_url = dating_pages.baseURL + "/signup";
+    const signup_message = document.getElementById("signup-message");
+    const params = new URLSearchParams();
     params.append("name", NAME.value);
     params.append("email", EMAIL.value);
     params.append("age", AGE.value);
@@ -61,12 +62,19 @@ dating_pages.load_landing = () => {
     );
     params.append("password", PASSWORD.value);
 
-    axios.post(signup_url, params).then((x) => console.log(x));
-    // dating_pages.postAPI(signup_url, params);
+    axios({ method: "post", url: signup_url, data: params }).then((object) => {
+      if (object.data.result == "email already registered") {
+        signup_message.textContent = "email already registered";
+      } else if (object.data.result == "invalid email") {
+        signup_message.textContent = "invalid email";
+      } else {
+        signup_message.textContent = "Registration succeeded Please log In";
+      }
+    });
   });
 };
 
-dating_pages.load_profile = () => {};
-dating_pages.load_chat = () => {};
-dating_pages.load_favorites = () => {};
-dating_pages.load_feed = () => {};
+// dating_pages.load_profile = () => {};
+// dating_pages.load_chat = () => {};
+// dating_pages.load_favorites = () => {};
+// dating_pages.load_feed = () => {};
