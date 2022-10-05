@@ -81,6 +81,7 @@ dating_pages.load_landing = () => {
             "fav_gender",
             JSON.stringify(object.data.result.favorite_gender)
           );
+          localStorage.setItem("location", object.data.result.location);
         }
       }
     );
@@ -177,6 +178,7 @@ dating_pages.load_profile = () => {
 dating_pages.load_feed = () => {
   const user_id = JSON.parse(localStorage.getItem("user_id"));
   const favor_gender = JSON.parse(localStorage.getItem("fav_gender"));
+  const mylocation = JSON.parse(localStorage.getItem("location"));
   const feed_url = dating_pages.baseURL + "/feed";
   // logging out
   dating_pages.logout.addEventListener("click", () => {
@@ -187,8 +189,6 @@ dating_pages.load_feed = () => {
   const feed_params = new URLSearchParams();
   feed_params.append("user_id", user_id);
   feed_params.append("favorite_gender", favor_gender);
-  console.log(favor_gender);
-  console.log(user_id);
   // Posting to the database
   axios({
     method: "post",
@@ -197,43 +197,40 @@ dating_pages.load_feed = () => {
   }).then((object) => {
     localStorage.setItem("people", JSON.stringify(object.data.result));
   });
+
+  // Now sort the data from closest to furthest
   peopleArray = JSON.parse(localStorage.getItem("people"));
-  console.log(peopleArray);
-  // const card = `<div class="person-card">
-  //           <img id="${user_id}-img" src="${user_id}" />
-  //           <p>name: <span></span></p>
-  //           <p>age: <span></span></p>
-  //           <p>gender: <span></span></p>
-  //           <p>bio: <span></span></p>
-  //           <div class="person-buttons">
-  //             <button>favorite</button>
-  //             <button>chat</button>
-  //             <button>block</button>
-  //           </div>
-  //         </div>`;
-
-  // let people = "";
-  // for (let i = 0; i < data.products.length; i++) {
-  //   prod_img = data.products[i].images[0].image;
-  //   prod_name = data.products[i].product_name;
-  //   prod_price = data.products[i].price;
-  //   person = `
-  //   <div id="${data.products[i].id}" class="product grow">
-  //     <div class="prod-ims">
-  //       <img class="prod-img" src="${prod_img}" />
-  //       <img class="prod-heart" src="/Assets/icons/emptyHeart.svg" />
-  //     </div >
-  //     <div class="prod-init-description">
-  //     <p id="prod-name">${prod_name}</p>
-  //     <p id="prod-price">${prod_price}$</p>
-  //     </div>
-  //   </div>
-  // `;
-  //   prod_list += product;
-  // }
-
-  // total = prod_header + `<div class="products">` + prod_list + `</div`;
-  // prod_s.innerHTML += total;
+  for (let i = 0; i < peopleArray.length; i++) {
+    // calcCrow(lat1, lon1, lat2, lon2);
+    // y is latitude
+    peopleArray[i].order = calcCrow(
+      mylocation[1],
+      mylocation[0],
+      JSON.parse(peopleArray[i].location)[1],
+      JSON.parse(peopleArray[i].location)[0]
+    );
+  }
+  // Sort the array from closest to furthest
+  peopleArray.sort((a, b) => a.order - b.order);
+  const all_people = document.getElementById("ALL-PEOPLE");
+  let people = "";
+  for (let i = 0; i < peopleArray.length; i++) {
+    const person = `<div class="person-card">
+    <img id="${peopleArray[i].user_id}-img" src="${peopleArray[i].picture}" />
+    <p>name: <span>${peopleArray[i].name}</span></p>
+    <p>age: <span>${peopleArray[i].age}</span></p>
+    <p>gender: <span></span>${peopleArray[i].gender}</p>
+    <p>bio: <span>${peopleArray[i].bio}</span></p>
+    <div class="person-buttons">
+      <button>favorite</button>
+      <button>chat</button>
+      <button>block</button>
+    </div>
+  </div>`;
+    people += person;
+  }
+  console.log(people);
+  all_people.innerHTML += people;
 };
 
 dating_pages.load_chat = () => {
@@ -271,3 +268,25 @@ function success(pos) {
 
 function error(err) {}
 ////////////////////////////////////////////////////////////
+
+// finding distance between two points on earth
+
+function calcCrow(lat1, lon1, lat2, lon2) {
+  var R = 6371; // km
+  var dLat = toRad(lat2 - lat1);
+  var dLon = toRad(lon2 - lon1);
+  var lat1 = toRad(lat1);
+  var lat2 = toRad(lat2);
+
+  var a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+  return d;
+}
+
+// Converts numeric degrees to radians
+function toRad(Value) {
+  return (Value * Math.PI) / 180;
+}
