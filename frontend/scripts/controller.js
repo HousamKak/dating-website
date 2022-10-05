@@ -423,8 +423,8 @@ function calcCrow(lat1, lon1, lat2, lon2) {
   const R = 6371; // km
   const dLat = toRad(lat2 - lat1);
   const dLon = toRad(lon2 - lon1);
-  const lat1 = toRad(lat1);
-  const lat2 = toRad(lat2);
+  lat1 = toRad(lat1);
+  lat2 = toRad(lat2);
 
   let a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
