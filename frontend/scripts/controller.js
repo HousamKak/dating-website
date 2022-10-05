@@ -73,7 +73,14 @@ dating_pages.load_landing = () => {
           signin_message.textContent = x + "email not registered";
         } else {
           window.location.href = "/html pages/feed.html";
-          localStorage.setItem("user_id", JSON.stringify(object.data.result));
+          localStorage.setItem(
+            "user_id",
+            JSON.stringify(object.data.result.user_id)
+          );
+          localStorage.setItem(
+            "fav_gender",
+            JSON.stringify(object.data.result.favorite_gender)
+          );
         }
       }
     );
@@ -145,7 +152,6 @@ dating_pages.load_profile = () => {
     console.log(image);
     new_profile_params.append("picture", image);
     new_profile_params.append("age", profile_age.value);
-    new_profile_params.append("gender", profile_gender.value);
     new_profile_params.append("favorite_gender", profile_favgender.value);
     new_profile_params.append("bio", profile_bio.value);
 
@@ -164,9 +170,72 @@ dating_pages.load_profile = () => {
     write_age.textContent = profile_age.value;
     write_gender.textContent = profile_gender.value;
     write_bio.textContent = profile_bio.value;
-    // window.location.reload();
+    window.location.reload();
   });
 };
+
+dating_pages.load_feed = () => {
+  const user_id = JSON.parse(localStorage.getItem("user_id"));
+  const favor_gender = JSON.parse(localStorage.getItem("fav_gender"));
+  const feed_url = dating_pages.baseURL + "/feed";
+  // logging out
+  dating_pages.logout.addEventListener("click", () => {
+    logOut();
+  });
+
+  // Parameters
+  const feed_params = new URLSearchParams();
+  feed_params.append("user_id", user_id);
+  feed_params.append("favorite_gender", favor_gender);
+  console.log(favor_gender);
+  console.log(user_id);
+  // Posting to the database
+  axios({
+    method: "post",
+    url: feed_url,
+    data: feed_params,
+  }).then((object) => {
+    localStorage.setItem("people", JSON.stringify(object.data.result));
+  });
+  peopleArray = JSON.parse(localStorage.getItem("people"));
+  console.log(peopleArray);
+  // const card = `<div class="person-card">
+  //           <img id="${user_id}-img" src="${user_id}" />
+  //           <p>name: <span></span></p>
+  //           <p>age: <span></span></p>
+  //           <p>gender: <span></span></p>
+  //           <p>bio: <span></span></p>
+  //           <div class="person-buttons">
+  //             <button>favorite</button>
+  //             <button>chat</button>
+  //             <button>block</button>
+  //           </div>
+  //         </div>`;
+
+  // let people = "";
+  // for (let i = 0; i < data.products.length; i++) {
+  //   prod_img = data.products[i].images[0].image;
+  //   prod_name = data.products[i].product_name;
+  //   prod_price = data.products[i].price;
+  //   person = `
+  //   <div id="${data.products[i].id}" class="product grow">
+  //     <div class="prod-ims">
+  //       <img class="prod-img" src="${prod_img}" />
+  //       <img class="prod-heart" src="/Assets/icons/emptyHeart.svg" />
+  //     </div >
+  //     <div class="prod-init-description">
+  //     <p id="prod-name">${prod_name}</p>
+  //     <p id="prod-price">${prod_price}$</p>
+  //     </div>
+  //   </div>
+  // `;
+  //   prod_list += product;
+  // }
+
+  // total = prod_header + `<div class="products">` + prod_list + `</div`;
+  // prod_s.innerHTML += total;
+};
+
 dating_pages.load_chat = () => {
   // logging out
   dating_pages.logout.addEventListener("click", () => {
@@ -179,13 +248,6 @@ dating_pages.load_favorites = () => {
     logOut();
   });
 };
-dating_pages.load_feed = () => {
-  // logging out
-  dating_pages.logout.addEventListener("click", () => {
-    logOut();
-  });
-};
-
 
 // logging out
 function logOut() {
