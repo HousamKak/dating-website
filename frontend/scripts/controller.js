@@ -221,15 +221,23 @@ dating_pages.load_feed = () => {
     <p>age: <span>${peopleArray[i].age}</span></p>
     <p>gender: <span></span>${peopleArray[i].gender}</p>
     <p>bio: <span>${peopleArray[i].bio}</span></p>
+    <p>This person is <span>${Math.floor(
+      peopleArray[i].order
+    )}</span> km away from you</p>
     <div class="person-buttons">
-      <button id="${peopleArray[i].user_id}-fav" class="feedbuttons" >favorite</button>
-      <button id="${peopleArray[i].user_id}-chat" class="feedchat" >chat</button>
-      <button id="${peopleArray[i].user_id}-block" class="feedblock">block</button>
+      <button id="${
+        peopleArray[i].user_id
+      }-fav" class="feedbuttons" >favorite</button>
+      <button id="${
+        peopleArray[i].user_id
+      }-chat" class="feedchat" >chat</button>
+      <button id="${
+        peopleArray[i].user_id
+      }-block" class="feedblock">block</button>
     </div>
   </div>`;
     people += person;
   }
-  console.log(people);
   all_people.innerHTML += people;
 
   const favorite_buttons = Array.from(
@@ -273,13 +281,113 @@ dating_pages.load_feed = () => {
   );
 };
 
-dating_pages.load_chat = () => {
+dating_pages.load_favorites = () => {
   // logging out
   dating_pages.logout.addEventListener("click", () => {
     logOut();
   });
+
+  const user_id = JSON.parse(localStorage.getItem("user_id"));
+  const myfavorites_url = dating_pages.baseURL + "/myfavorites";
+  const mylocation = JSON.parse(localStorage.getItem("location"));
+
+  // Parameters
+  const myfavorites_params = new URLSearchParams();
+  myfavorites_params.append("user_id", user_id);
+  // Posting to the database
+  axios({
+    method: "post",
+    url: myfavorites_url,
+    data: myfavorites_params,
+  }).then((object) => {
+    localStorage.setItem("fav_people", JSON.stringify(object.data.result));
+  });
+
+  peopleArray = JSON.parse(localStorage.getItem("fav_people"));
+  for (let i = 0; i < peopleArray.length; i++) {
+    // calcCrow(lat1, lon1, lat2, lon2);
+    // y is latitude
+    peopleArray[i][0].order = calcCrow(
+      mylocation[1],
+      mylocation[0],
+      JSON.parse(peopleArray[i][0].location)[1],
+      JSON.parse(peopleArray[i][0].location)[0]
+    );
+  }
+  console.log(peopleArray);
+  const all_people_fav = document.getElementById("ALL-PEOPLE-fav");
+  console.log(peopleArray[1]);
+  let people_fav = "";
+  for (let i = 0; i < peopleArray.length; i++) {
+    const person = `<div class="person-card">
+    <img id="${peopleArray[i][0].user_id}-img" src="${
+      peopleArray[i][0].picture
+    }" />
+    <p>name: <span>${peopleArray[i][0].name}</span></p>
+    <p>age: <span>${peopleArray[i][0].age}</span></p>
+    <p>gender: <span></span>${peopleArray[i][0].gender}</p>
+    <p>bio: <span>${peopleArray[i][0].bio}</span></p>
+    <p>This person is <span>${Math.floor(
+      peopleArray[i][0].order
+    )}</span> km away from you</p>
+    <div class="person-buttons">
+      <button id="${
+        peopleArray[i][0].user_id
+      }-fav" class="feedbuttons" >favorite</button>
+      <button id="${
+        peopleArray[i][0].user_id
+      }-chat" class="feedchat" >chat</button>
+      <button id="${
+        peopleArray[i][0].user_id
+      }-block" class="feedblock">block</button>
+    </div>
+  </div>`;
+    people_fav += person;
+  }
+  all_people_fav.innerHTML += people_fav;
+
+  const favorite_buttons = Array.from(
+    document.getElementsByClassName("feedbuttons")
+  );
+
+  favorite_buttons.forEach((element) => {
+    element.onclick = async () => {
+      clicked_favorite = findElement(element.id, favorite_buttons);
+      if (clicked_favorite.textContent == "favorite") {
+        clicked_favorite.textContent = "unfavorite";
+        const favorited_parameters = new URLSearchParams();
+        favorited_parameters.append("admirer_id", user_id);
+        favorited_parameters.append("favorited_id", element.id.split("-")[0]);
+        favoriting_url = dating_pages.baseURL + "/favorites/update";
+        console.log(user_id, element.id.split("-")[0], favoriting_url);
+        axios({
+          method: "post",
+          url: favoriting_url,
+          data: favorited_parameters,
+        });
+      } else {
+        clicked_favorite.textContent = "favorite";
+        const unfavorited_parameters = new URLSearchParams();
+        unfavorited_parameters.append("admirer_id", user_id);
+        unfavorited_parameters.append("favorited_id", element.id.split("-")[0]);
+        unfavoriting_url = dating_pages.baseURL + "/favorites/remove";
+        await axios({
+          method: "post",
+          url: unfavoriting_url,
+          data: unfavorited_parameters,
+        });
+      }
+    };
+  });
+
+  const chat_buttons = Array.from(document.getElementsByClassName("feedchat"));
+
+  const block_buttons = Array.from(
+    document.getElementsByClassName("feedblock")
+  );
 };
-dating_pages.load_favorites = () => {
+
+dating_pages.load_chat = () => {
   // logging out
   dating_pages.logout.addEventListener("click", () => {
     logOut();
