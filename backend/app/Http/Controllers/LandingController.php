@@ -64,6 +64,7 @@ class LandingController extends Controller
                 );
             } else {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+                $user->update(['location' => $request->location]);
                 return response()->json([
                     "status" => "Success",
                     "result" => $user->user_id,
