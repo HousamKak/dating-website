@@ -19,5 +19,8 @@ Route::post("/user/info", [ProfileController::class, "userInfo"])->name("userInf
 Route::post("/user/update", [ProfileController::class, "userUpdate"])->name("userUpdate");
 Route::post("/feed", [DisplayController::class, "getFeed"])->name("getFeed");
 
+Route::post("/favorites/update", [DisplayController::class, "addFavorites"])->name("addFavorites");
+Route::post("/favorites/remove", [DisplayController::class, "remFavorites"])->name("remFavorites");
+
 
 // });
