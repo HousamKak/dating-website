@@ -1,35 +1,7 @@
 // navigator.geolocation.getCurrentPosition(showPosition);
 const dating_pages = {};
-
+dating_pages.logout = document.getElementById("LOGOUT");
 dating_pages.baseURL = "http://127.0.0.1:8000/api";
-
-dating_pages.Console = (title, values, oneValue = true) => {
-  console.log("---" + title + "---");
-  if (oneValue) {
-    console.log(values);
-  } else {
-    for (let i = 0; i < values.length; i++) {
-      console.log(values[i]);
-    }
-  }
-  console.log("--/" + title + "---");
-};
-
-dating_pages.getAPI = (api_url) => {
-  try {
-    return axios(api_url);
-  } catch (error) {
-    dating_pages.Console("Error from GET API", error);
-  }
-};
-
-dating_pages.postAPI = (api_url, api_data, api_token = null) => {
-  return axios.post(api_url, api_data, {
-    headers: {
-      Authorization: "token " + api_token,
-    },
-  });
-};
 
 dating_pages.loadFor = (page) => {
   eval("dating_pages.load_" + page + "();");
@@ -101,6 +73,11 @@ dating_pages.load_landing = () => {
 };
 
 dating_pages.load_profile = () => {
+  // logging out
+  dating_pages.logout.addEventListener("click", () => {
+    logOut();
+  });
+
   const user_id = JSON.parse(localStorage.getItem("user_id"));
   const user_info_url = dating_pages.baseURL + "/user/info";
   const profile_params = new URLSearchParams();
@@ -156,10 +133,27 @@ dating_pages.load_profile = () => {
     write_profile.src = correctImagePath(profile_photo_path.value);
   });
 };
-dating_pages.load_chat = () => {};
-dating_pages.load_favorites = () => {};
-dating_pages.load_feed = () => {};
+dating_pages.load_chat = () => {
+  // logging out
+  dating_pages.logout.addEventListener("click", () => {
+    logOut();
+  });
+};
+dating_pages.load_favorites = () => {
+  // logging out
+  dating_pages.logout.addEventListener("click", () => {
+    logOut();
+  });
+};
+dating_pages.load_feed = () => {
+  // logging out
+  dating_pages.logout.addEventListener("click", () => {
+    logOut();
+  });
+};
 
+// returns the correct image path to where the images are stored from the input
+// Used in profile section
 function correctImagePath(impath) {
   const path = "/Assets/Images/";
   const string_length = impath.length;
@@ -173,4 +167,10 @@ function correctImagePath(impath) {
     file_name += impath[i];
   }
   return path + file_name;
+}
+
+// logging out
+function logOut() {
+  localStorage.removeItem("user_id");
+  window.location.href = "/html pages/landingpage.html";
 }
