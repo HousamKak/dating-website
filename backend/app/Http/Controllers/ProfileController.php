@@ -19,10 +19,23 @@ class ProfileController extends Controller
     function userUpdate(Request $request)
     {
         $user = User::where('user_id', $request->user_id);
-        $user->update(['name' => $request->name]);
-        $user->update(['picture' => $request->picture]);
-        $user->update(['age' => $request->age]);
-        $user->update(['gender' => $request->gender]);
-        $user->update(['favorite_gender' => $request->favorite_gender]);
+        if ($request->name) {
+            $user->update(['name' => $request->name]);
+        }
+        if ($request->picture) {
+            $user->update(['picture' => $request->picture]);
+        }
+        if ($request->age) {
+            $user->update(['age' => $request->age]);
+        }
+        if ($request->gender) {
+            $user->update(['gender' => $request->gender]);
+        }
+        if ($request->favorite_gender) {
+            $user->update(['favorite_gender' => $request->favorite_gender]);
+        }
+        if ($request->bio) {
+            $user->update(['bio' => $request->bio]);
+        }
     }
 }
