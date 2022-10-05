@@ -222,15 +222,36 @@ dating_pages.load_feed = () => {
     <p>gender: <span></span>${peopleArray[i].gender}</p>
     <p>bio: <span>${peopleArray[i].bio}</span></p>
     <div class="person-buttons">
-      <button>favorite</button>
-      <button>chat</button>
-      <button>block</button>
+      <button id="${peopleArray[i].user_id}-fav" class="feedbuttons" >favorite</button>
+      <button id="${peopleArray[i].user_id}-chat" class="feedchat" >chat</button>
+      <button id="${peopleArray[i].user_id}-block" class="feedblock">block</button>
     </div>
   </div>`;
     people += person;
   }
   console.log(people);
   all_people.innerHTML += people;
+
+  const favorite_buttons = Array.from(
+    document.getElementsByClassName("feedbuttons")
+  );
+
+  favorite_buttons.forEach((element) => {
+    element.onclick = () => {
+      clicked_favorite = findElement(element.id, favorite_buttons);
+      if (clicked_favorite.textContent == "favorite") {
+        clicked_favorite.textContent = "unfavorite";
+      } else {
+        clicked_favorite.textContent = "favorite";
+      }
+    };
+  });
+
+  const chat_buttons = Array.from(document.getElementsByClassName("feedchat"));
+
+  const block_buttons = Array.from(
+    document.getElementsByClassName("feedblock")
+  );
 };
 
 dating_pages.load_chat = () => {
@@ -289,4 +310,14 @@ function calcCrow(lat1, lon1, lat2, lon2) {
 // Converts numeric degrees to radians
 function toRad(Value) {
   return (Value * Math.PI) / 180;
+}
+
+// Search for elements
+function findElement(id, set) {
+  for (const x of set) {
+    if (id == x.id) {
+      return x;
+    }
+  }
+  return null;
 }
