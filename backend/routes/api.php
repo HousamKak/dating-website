@@ -7,6 +7,7 @@
 // but these were not loaded, likely because it conflicts with another require.
 // Route::group(['middleware' => 'auth:api',], function () { 
 
+use App\Http\Controllers\DisplayController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProfileController;
@@ -16,6 +17,7 @@ Route::post("/signin", [LandingController::class, "signin"])->name("signin");
 
 Route::post("/user/info", [ProfileController::class, "userInfo"])->name("userInfo");
 Route::post("/user/update", [ProfileController::class, "userUpdate"])->name("userUpdate");
+Route::post("/feed", [DisplayController::class, "getFeed"])->name("getFeed");
 
 
 // });
