@@ -67,7 +67,7 @@ class LandingController extends Controller
                 $user->update(['location' => $request->location]);
                 return response()->json([
                     "status" => "Success",
-                    "result" => $user->user_id,
+                    "result" => $user,
                     "token" => $token
                 ]);
             }
