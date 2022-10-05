@@ -7,7 +7,6 @@
 // but these were not loaded, likely because it conflicts with another require.
 // Route::group(['middleware' => 'auth:api',], function () { 
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProfileController;
