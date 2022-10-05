@@ -152,6 +152,7 @@ dating_pages.load_profile = () => {
     write_gender.textContent = profile_gender.value;
     write_bio.textContent = profile_bio.value;
     write_profile.src = correctImagePath(profile_photo_path.value);
+    window.location.reload();
   });
 };
 dating_pages.load_chat = () => {
