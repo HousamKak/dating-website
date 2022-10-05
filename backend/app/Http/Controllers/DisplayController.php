@@ -40,4 +40,17 @@ class DisplayController extends Controller
         $fav = ['admirer_id' => $request->admirer_id, 'favorited_id' => $request->favorited_id];
         $fav_relation = Favorite::where($fav)->delete();
     }
+
+    function getFavorites(Request $request)
+    {
+        $data = Favorite::select('favorited_id')->where("admirer_id", $request->user_id)->get();
+        $favorited_users = array();
+        foreach ($data as $x) {
+            array_push($favorited_users, USER::where('user_id', $x->favorited_id)->get());
+        }
+        return response()->json([
+            "status" => "Success",
+            "result" => $favorited_users
+        ]);
+    }
 }

@@ -21,6 +21,6 @@ Route::post("/feed", [DisplayController::class, "getFeed"])->name("getFeed");
 
 Route::post("/favorites/update", [DisplayController::class, "addFavorites"])->name("addFavorites");
 Route::post("/favorites/remove", [DisplayController::class, "remFavorites"])->name("remFavorites");
-
+Route::post("/myfavorites", [DisplayController::class, "getFavorites"])->name("getFavorites");
 
 // });
