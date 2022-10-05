@@ -139,7 +139,10 @@ dating_pages.load_profile = () => {
     new_profile_params.append("user_id", user_id);
     new_profile_params.append("name", profile_name.value);
     new_profile_params.append("age", profile_age.value);
-    new_profile_params.append("picture", profile_photo_path.value);
+    new_profile_params.append(
+      "picture",
+      correctImagePath(profile_photo_path.value)
+    );
     new_profile_params.append("gender", profile_gender.value);
     new_profile_params.append("favorite_gender", profile_favgender.value);
     axios({
@@ -150,11 +153,24 @@ dating_pages.load_profile = () => {
     write_name.textContent = profile_name.value;
     write_age.textContent = profile_age.value;
     write_gender.textContent = profile_gender.value;
-    write_favgender.textContent = profile_favgender.value;
-    // profile_photo.src
-    console.log(profile_photo);
+    write_profile.src = correctImagePath(profile_photo_path.value);
   });
 };
 dating_pages.load_chat = () => {};
 dating_pages.load_favorites = () => {};
 dating_pages.load_feed = () => {};
+
+function correctImagePath(impath) {
+  const path = "/Assets/Images/";
+  const string_length = impath.length;
+  const last_index = impath.lastIndexOf("\\");
+  let file_name = "";
+  for (
+    let i = last_index + 1;
+    i <= last_index + string_length - last_index - 1;
+    i++
+  ) {
+    file_name += impath[i];
+  }
+  return path + file_name;
+}
