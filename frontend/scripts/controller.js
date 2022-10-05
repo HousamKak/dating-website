@@ -125,15 +125,25 @@ dating_pages.load_profile = () => {
   const update_profile = document.getElementById("UPDATE-PROFILE");
   const update_profile_url = dating_pages.baseURL + "/user/update";
 
+  // encoding the image
+  let image = "";
+  const getImage = () => {
+    let file = profile_photo_path["files"][0];
+    let reader = new FileReader();
+    reader.onload = function () {
+      image = reader.result.replace("data:", "").replace(/^.+,/, "");
+    };
+    reader.readAsDataURL(file);
+  };
+
+  profile_photo_path.addEventListener("change", getImage);
   update_profile.addEventListener("click", () => {
     // Collecting the needed input parameters
     const new_profile_params = new URLSearchParams();
     new_profile_params.append("user_id", user_id);
     new_profile_params.append("name", profile_name.value);
-    new_profile_params.append(
-      "picture",
-      correctImagePath(profile_photo_path.value)
-    );
+    console.log(image);
+    new_profile_params.append("picture", image);
     new_profile_params.append("age", profile_age.value);
     new_profile_params.append("gender", profile_gender.value);
     new_profile_params.append("favorite_gender", profile_favgender.value);
@@ -144,6 +154,9 @@ dating_pages.load_profile = () => {
       method: "post",
       url: update_profile_url,
       data: new_profile_params,
+    }).then((object) => {
+      console.log(object.data);
+      write_profile.src = object.data.result;
     });
 
     // Writing in the document
@@ -151,8 +164,7 @@ dating_pages.load_profile = () => {
     write_age.textContent = profile_age.value;
     write_gender.textContent = profile_gender.value;
     write_bio.textContent = profile_bio.value;
-    write_profile.src = correctImagePath(profile_photo_path.value);
-    window.location.reload();
+    // window.location.reload();
   });
 };
 dating_pages.load_chat = () => {
@@ -174,22 +186,6 @@ dating_pages.load_feed = () => {
   });
 };
 
-// returns the correct image path to where the images are stored from the input
-// Used in profile section
-function correctImagePath(impath) {
-  const path = "/Assets/Images/";
-  const string_length = impath.length;
-  const last_index = impath.lastIndexOf("\\");
-  let file_name = "";
-  for (
-    let i = last_index + 1;
-    i <= last_index + string_length - last_index - 1;
-    i++
-  ) {
-    file_name += impath[i];
-  }
-  return path + file_name;
-}
 
 // logging out
 function logOut() {
