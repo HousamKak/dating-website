@@ -35,4 +35,9 @@ class DisplayController extends Controller
             ]);
         }
     }
+    function remFavorites(Request $request)
+    {
+        $fav = ['admirer_id' => $request->admirer_id, 'favorited_id' => $request->favorited_id];
+        $fav_relation = Favorite::where($fav)->delete();
+    }
 }

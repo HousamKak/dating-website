@@ -237,14 +237,15 @@ dating_pages.load_feed = () => {
   );
 
   favorite_buttons.forEach((element) => {
-    element.onclick = () => {
+    element.onclick = async () => {
       clicked_favorite = findElement(element.id, favorite_buttons);
       if (clicked_favorite.textContent == "favorite") {
         clicked_favorite.textContent = "unfavorite";
         const favorited_parameters = new URLSearchParams();
         favorited_parameters.append("admirer_id", user_id);
         favorited_parameters.append("favorited_id", element.id.split("-")[0]);
-        favoriting_url = baseURL + "/favorate/";
+        favoriting_url = dating_pages.baseURL + "/favorites/update";
+        console.log(user_id, element.id.split("-")[0], favoriting_url);
         axios({
           method: "post",
           url: favoriting_url,
@@ -252,14 +253,14 @@ dating_pages.load_feed = () => {
         });
       } else {
         clicked_favorite.textContent = "favorite";
-        const favorited_parameters = new URLSearchParams();
-        favorited_parameters.append("admirer_id", user_id);
-        favorited_parameters.append("favorited_id", element.id.split("-")[0]);
-        favoriting_url = baseURL + "/favorate/";
-        axios({
+        const unfavorited_parameters = new URLSearchParams();
+        unfavorited_parameters.append("admirer_id", user_id);
+        unfavorited_parameters.append("favorited_id", element.id.split("-")[0]);
+        unfavoriting_url = dating_pages.baseURL + "/favorites/remove";
+        await axios({
           method: "post",
-          url: favoriting_url,
-          data: favorited_parameters,
+          url: unfavoriting_url,
+          data: unfavorited_parameters,
         });
       }
     };
