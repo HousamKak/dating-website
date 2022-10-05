@@ -241,8 +241,26 @@ dating_pages.load_feed = () => {
       clicked_favorite = findElement(element.id, favorite_buttons);
       if (clicked_favorite.textContent == "favorite") {
         clicked_favorite.textContent = "unfavorite";
+        const favorited_parameters = new URLSearchParams();
+        favorited_parameters.append("admirer_id", user_id);
+        favorited_parameters.append("favorited_id", element.id.split("-")[0]);
+        favoriting_url = baseURL + "/favorate/";
+        axios({
+          method: "post",
+          url: favoriting_url,
+          data: favorited_parameters,
+        });
       } else {
         clicked_favorite.textContent = "favorite";
+        const favorited_parameters = new URLSearchParams();
+        favorited_parameters.append("admirer_id", user_id);
+        favorited_parameters.append("favorited_id", element.id.split("-")[0]);
+        favoriting_url = baseURL + "/favorate/";
+        axios({
+          method: "post",
+          url: favoriting_url,
+          data: favorited_parameters,
+        });
       }
     };
   });
