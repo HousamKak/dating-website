@@ -11,6 +11,13 @@ dating_pages.load_landing = () => {
   // Get the signup button
   const SIGNUP = document.getElementById("SIGNUP");
 
+  // Storing the location
+  navigator.geolocation.getCurrentPosition(success, error, options);
+  const y_pos = localStorage.getItem("Latitude");
+  const x_pos = localStorage.getItem("Longitude");
+  const pos = [x_pos, y_pos];
+  const pos_json = JSON.stringify(pos);
+
   // Get the signup input fields
   const FAV_GENDER = document.getElementById("FAV-GENDER");
   const NAME = document.getElementById("NAME");
@@ -21,6 +28,7 @@ dating_pages.load_landing = () => {
   const IN_EMAIL = document.getElementById("IN-EMAIL");
   const IN_PASSWORD = document.getElementById("IN-PASSWORD");
   const LOGIN = document.getElementById("LOGIN");
+
   // Listen to the signup click
   SIGNUP.addEventListener("click", () => {
     const signup_url = dating_pages.baseURL + "/signup";
@@ -35,7 +43,6 @@ dating_pages.load_landing = () => {
       FAV_GENDER.options[FAV_GENDER.selectedIndex].value
     );
     params.append("password", PASSWORD.value);
-
     axios({ method: "post", url: signup_url, data: params }).then((object) => {
       if (object.data.result == "email already registered") {
         signup_message.textContent = "email already registered";
@@ -53,6 +60,7 @@ dating_pages.load_landing = () => {
     const signin_params = new URLSearchParams();
     signin_params.append("email", IN_EMAIL.value);
     signin_params.append("password", IN_PASSWORD.value);
+    signin_params.append("location", pos_json);
     const signin_message = document.getElementById("signin-message");
     axios({ method: "post", url: signin_url, data: signin_params }).then(
       (object) => {
@@ -90,6 +98,8 @@ dating_pages.load_profile = () => {
   const write_gender = document.getElementById("write-gender");
   const write_favgender = document.getElementById("write-favgender");
   const write_profile = document.getElementById("PROFILE-PHOTO");
+  const write_location = document.getElementById("write-location");
+  const write_bio = document.getElementById("write-bio");
 
   axios({ method: "post", url: user_info_url, data: profile_params }).then(
     (object) => {
@@ -98,7 +108,10 @@ dating_pages.load_profile = () => {
       write_age.textContent = object.data.result.age;
       write_gender.textContent = object.data.result.gender;
       write_favgender.textContent = object.data.result.favorite_gender;
+      write_location.textContent =
+        "You are here: " + object.data.result.location;
       write_profile.src = object.data.result.picture;
+      write_bio.textContent = object.data.result.bio;
     }
   );
 
@@ -107,29 +120,37 @@ dating_pages.load_profile = () => {
   const profile_photo_path = document.getElementById("PROFILE-PHOTO-path");
   const profile_age = document.getElementById("PROFILE-AGE");
   const profile_gender = document.getElementById("PROFILE-GENDER");
+  const profile_bio = document.getElementById("PROFILE-BIO");
   const profile_favgender = document.getElementById("PROFILE-FAVGENDER");
   const update_profile = document.getElementById("UPDATE-PROFILE");
   const update_profile_url = dating_pages.baseURL + "/user/update";
 
   update_profile.addEventListener("click", () => {
+    // Collecting the needed input parameters
     const new_profile_params = new URLSearchParams();
     new_profile_params.append("user_id", user_id);
     new_profile_params.append("name", profile_name.value);
-    new_profile_params.append("age", profile_age.value);
     new_profile_params.append(
       "picture",
       correctImagePath(profile_photo_path.value)
     );
+    new_profile_params.append("age", profile_age.value);
     new_profile_params.append("gender", profile_gender.value);
     new_profile_params.append("favorite_gender", profile_favgender.value);
+    new_profile_params.append("bio", profile_bio.value);
+
+    // Posting to the database
     axios({
       method: "post",
       url: update_profile_url,
       data: new_profile_params,
     });
+
+    // Writing in the document
     write_name.textContent = profile_name.value;
     write_age.textContent = profile_age.value;
     write_gender.textContent = profile_gender.value;
+    write_bio.textContent = profile_bio.value;
     write_profile.src = correctImagePath(profile_photo_path.value);
   });
 };
@@ -174,3 +195,20 @@ function logOut() {
   localStorage.removeItem("user_id");
   window.location.href = "/html pages/landingpage.html";
 }
+
+// getting position
+////////////////////////////////////////////
+const options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0,
+};
+
+function success(pos) {
+  const crd = pos.coords;
+  localStorage.setItem("Latitude", crd.latitude);
+  localStorage.setItem("Longitude", crd.longitude);
+}
+
+function error(err) {}
+////////////////////////////////////////////////////////////
